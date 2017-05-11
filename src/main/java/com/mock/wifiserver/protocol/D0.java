@@ -20,7 +20,7 @@ public class D0 {
 		head.setBit5(NumberUtil.indexOfBit(d0, 5));
 		
 		head.setToDo(NumberUtil.indexOfBit(d0, 6));
-		head.setToDo(NumberUtil.indexOfBit(d0, 7));
+		head.setOps(NumberUtil.indexOfBit(d0, 7));
 		
 		return head;
 	}
