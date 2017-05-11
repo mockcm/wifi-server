@@ -32,6 +32,7 @@ public class WifiServer {
 			}
 			f.channel().closeFuture().sync();
 		}catch (Exception e) {
+			logger.error(e.getMessage(), e);
 		}finally {
 			bossGroup.shutdownGracefully();
 			workGroup.shutdownGracefully();
