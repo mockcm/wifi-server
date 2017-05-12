@@ -1,6 +1,7 @@
 package com.mock.wifiserver.handler;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
@@ -20,6 +21,10 @@ public class StatInfoHandler extends ChannelInboundHandlerAdapter {
 		try {
 			StatInfo statInfo = StatInfo.decode((ByteBuf)msg);
 			logger.info("decode statInfo : {}",statInfo);
+			ByteBuf resp = ByteBufAllocator.DEFAULT.buffer(3);
+			resp.writeShort(1);
+			resp.writeByte(1);
+			ctx.writeAndFlush(resp);
 		} finally {
 			ReferenceCountUtil.release(msg);
 		}
