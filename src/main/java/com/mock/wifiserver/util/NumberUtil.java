@@ -32,6 +32,25 @@ public class NumberUtil {
 		return result;
 	}
 	
+	/**
+	 * 读取short值(大端模式)
+	 * @param data 数据源
+	 * @param index	开始读取的字节位置
+	 * @param length 读取的字节长度
+	 * @return
+	 */
+	public static short readAsShort(ByteBuf data,int index,int length) {
+		
+		if (length > 2 || length <= 0) throw new RuntimeException("illegal length to read a short value!");
+		if (length != 2) return (short)readWithRandomLength(data, index, length).intValue();
+		short result = 0;
+		int offset = length;
+		for (int i = index;i< (index + length);i++) {
+			result += (data.getByte(i) & 0xff) << (8*(--offset));
+		}
+		return result;
+	}	
+	
 	
 	/**
 	 * 读取Long值(大端模式)

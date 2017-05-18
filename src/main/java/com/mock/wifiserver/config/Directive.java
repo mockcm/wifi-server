@@ -7,16 +7,16 @@ public enum Directive {
 	PRODUCT_INFO((byte)0x01),
 	
 	//时间
-	TIME((byte)0X02),
+	DEVICE_TIME((byte)0X02),
 	
 	//开关机时间
-	START_SHUTDOWN_TIME((byte)0x03),
+	CONTROL((byte)0x03),
 	
 	//档位设置
-	GEAR_SETTING((byte)0x04),
+	//GEAR_SETTING((byte)0x04),
 	
 	//About
-	DEVICE_INFO((byte)0x05),
+	DEVICE_INFO((byte)0x04),
 	
 	//状态数据
 	STAT_INFO((byte)0x06),

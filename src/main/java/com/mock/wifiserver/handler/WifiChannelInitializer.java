@@ -10,9 +10,14 @@ public class WifiChannelInitializer extends ChannelInitializer<SocketChannel>{
 	
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
-		//ch.pipeline().addLast("decoder", new DataDecoder());
+		
 		ch.pipeline().addLast("decoder",new LengthFieldBasedFrameDecoder(WifiServerConstants.MAX_DATA_LENGTH, 0, 2, 0, 0));
+		ch.pipeline().addLast("auth",new AuthHandler());
 		ch.pipeline().addLast("dispatch", new DispatchHandler());
 		ch.pipeline().addLast("statInfo",new StatInfoHandler());
+		ch.pipeline().addLast("about", new AboutHandler());
+		ch.pipeline().addLast("control", new ControlHandler());
+		ch.pipeline().addLast("deviceTime", new DeviceTimeHandler());
+		ch.pipeline().addLast("productInfo", new ProductInfoHandler());
 	}
 }

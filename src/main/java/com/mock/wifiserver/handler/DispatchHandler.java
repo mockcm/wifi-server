@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mock.wifiserver.config.Directive;
+import com.mock.wifiserver.protocol.Protocol;
 
 public class DispatchHandler extends ChannelInboundHandlerAdapter {
 	
@@ -29,7 +30,7 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
 		ByteBuf data = (ByteBuf) msg;
-		byte control = data.getByte(2);
+		byte control = data.getByte(Protocol.CONTROL_OFFSET);
 		Directive directive = Directive.getDirective(control);
 		switch (directive) {
 		//状态信息
@@ -37,7 +38,25 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
 			StatInfoHandler statInfoHandler = (StatInfoHandler) ctx.pipeline().get("statInfo");
 			statInfoHandler.channelRead(ctx, msg);
 			break;
-			//其实
+		//About
+		case DEVICE_INFO:
+			AboutHandler aboutHandler = (AboutHandler) ctx.pipeline().get("about");
+			aboutHandler.channelRead(ctx, msg);
+			break;
+		//控制
+		case CONTROL:
+			ControlHandler controlHandler = (ControlHandler) ctx.pipeline().get("control");
+			controlHandler.channelRead(ctx, msg);
+			break;
+		//时间
+		case DEVICE_TIME:
+			DeviceTimeHandler deviceTimeHandler = (DeviceTimeHandler) ctx.pipeline().get("deviceTime");
+			deviceTimeHandler.channelRead(ctx, msg);
+			break;
+		//产品信息
+		case PRODUCT_INFO:
+			ProductInfoHandler productInfoHandler = (ProductInfoHandler) ctx.pipeline().get("productInfo");
+			productInfoHandler.channelRead(ctx, msg);
 		default:
 			break;
 		}
