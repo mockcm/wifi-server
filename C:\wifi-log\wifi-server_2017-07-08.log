@@ -1,0 +1,5 @@
+2017-07-08 14:10:22 INFO  WifiServer          .startup              - server startup succefully,listening on 0.0.0.0 : 11306 
+2017-07-08 14:12:29 INFO  DispatchHandler     .channelActive        - A client connected! ctx:ChannelHandlerContext(dispatch, [id: 0xf2a8b3bd, L:/192.168.0.101:11306 - R:/192.168.0.101:62167])
+2017-07-08 14:12:29 INFO  AuthHandler         .channelRead          - device with mac:123456 auth successfully!
+2017-07-08 14:12:29 INFO  ProductInfoHandler  .channelRead          - decode productInfo : ProductInfo [header=Header [mac=123456, cmd=CMD [bit0=1, bit1=0, bit2=0, bit3=0, bit4=0, bit5=0, toDo=0, ops=0], control=1], name=wifi, addr=中国]
+2017-07-08 14:39:20 INFO  DispatchHandler     .channelInactive      - A client disConnected! ctx:ChannelHandlerContext(dispatch, [id: 0xf2a8b3bd, L:/192.168.0.101:11306 ! R:/192.168.0.101:62167])
