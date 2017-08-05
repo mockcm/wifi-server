@@ -8,7 +8,7 @@ import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mock.wifiserver.protocol.CommonSuccessResponse;
+import com.mock.wifiserver.protocol.CommonResponse;
 import com.mock.wifiserver.protocol.StatInfo;
 
 public class StatInfoHandler extends ChannelInboundHandlerAdapter {
@@ -21,7 +21,7 @@ public class StatInfoHandler extends ChannelInboundHandlerAdapter {
 		try {
 			StatInfo statInfo = StatInfo.decode((ByteBuf)msg);
 			logger.info("decode statInfo : {}",statInfo);
-			CommonSuccessResponse.write(ctx, statInfo.getHeader().getControl());
+			CommonResponse.responseSuccess(ctx, statInfo.getHeader().getControl());
 		} finally {
 			ReferenceCountUtil.release(msg);
 		}

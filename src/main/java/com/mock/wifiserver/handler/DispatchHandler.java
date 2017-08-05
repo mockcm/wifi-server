@@ -1,14 +1,16 @@
 package com.mock.wifiserver.handler;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mock.wifiserver.DeviceManager;
 import com.mock.wifiserver.config.Directive;
 import com.mock.wifiserver.protocol.Protocol;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.AttributeKey;
 
 public class DispatchHandler extends ChannelInboundHandlerAdapter {
 	
@@ -22,7 +24,11 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		logger.info("A client disConnected! ctx:{}",ctx);
+		
+		String mac = (String) ctx.channel().attr(AttributeKey.valueOf("mac")).get();
+		ctx.channel().attr(AttributeKey.valueOf("mac")).remove();
+		logger.info("A client disConnected! mac:{}, ctx:{}",mac,ctx);
+		DeviceManager.removeDevice(mac);
 		super.channelInactive(ctx);
 	}
 

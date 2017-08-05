@@ -8,7 +8,7 @@ import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mock.wifiserver.protocol.CommonSuccessResponse;
+import com.mock.wifiserver.protocol.CommonResponse;
 import com.mock.wifiserver.protocol.DeviceTime;
 
 public class DeviceTimeHandler extends ChannelInboundHandlerAdapter {
@@ -21,7 +21,7 @@ public class DeviceTimeHandler extends ChannelInboundHandlerAdapter {
 			ByteBuf data = (ByteBuf) msg;
 			DeviceTime deviceTime = DeviceTime.decode(data);
 			logger.info("decode deviceTime : {}",deviceTime);
-			CommonSuccessResponse.write(ctx, deviceTime.getHeader().getControl());
+			CommonResponse.responseSuccess(ctx, deviceTime.getHeader().getControl());
 		}finally {
 			ReferenceCountUtil.release(msg);
 		}

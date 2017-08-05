@@ -8,7 +8,7 @@ import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mock.wifiserver.protocol.CommonSuccessResponse;
+import com.mock.wifiserver.protocol.CommonResponse;
 import com.mock.wifiserver.protocol.Control;
 
 public class ControlHandler extends ChannelInboundHandlerAdapter  {
@@ -23,7 +23,7 @@ public class ControlHandler extends ChannelInboundHandlerAdapter  {
 			ByteBuf data = (ByteBuf)msg;
 			Control control = Control.decode(data);
 			logger.info("decode control : {}",control);
-			CommonSuccessResponse.write(ctx, control.getHeader().getControl());
+			CommonResponse.responseSuccess(ctx, control.getHeader().getControl());
 		}finally {
 			ReferenceCountUtil.release(msg);
 		}

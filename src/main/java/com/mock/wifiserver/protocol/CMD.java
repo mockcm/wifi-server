@@ -13,8 +13,8 @@ public class CMD {
 		head.setBit3(NumberUtil.indexOfBit(cmd, 3));
 		head.setBit4(NumberUtil.indexOfBit(cmd, 4));
 		head.setBit5(NumberUtil.indexOfBit(cmd, 5));
+		head.setBit6(NumberUtil.indexOfBit(cmd, 6));
 		
-		head.setToDo(NumberUtil.indexOfBit(cmd, 6));
 		head.setOps(NumberUtil.indexOfBit(cmd, 7));
 		
 		return head;
@@ -26,9 +26,8 @@ public class CMD {
 	private byte bit3;
 	private byte bit4;
 	private byte bit5;
-	
-	//1，设备更新，0，手机读取
-	private byte toDo;
+	private byte bit6;
+
 	//1，读  0，写
 	private byte ops;
 	
@@ -69,12 +68,6 @@ public class CMD {
 	public void setBit5(byte bit5) {
 		this.bit5 = bit5;
 	}
-	public byte getToDo() {
-		return toDo;
-	}
-	public void setToDo(byte toDo) {
-		this.toDo = toDo;
-	}
 	public byte getOps() {
 		return ops;
 	}
@@ -85,6 +78,12 @@ public class CMD {
 	public String toString() {
 		return "CMD [bit0=" + bit0 + ", bit1=" + bit1 + ", bit2=" + bit2
 				+ ", bit3=" + bit3 + ", bit4=" + bit4 + ", bit5=" + bit5
-				+ ", toDo=" + toDo + ", ops=" + ops + "]";
+				+ ", ops=" + ops + "]";
+	}
+	public byte getBit6() {
+		return bit6;
+	}
+	public void setBit6(byte bit6) {
+		this.bit6 = bit6;
 	}
 }

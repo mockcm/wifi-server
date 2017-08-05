@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mock.wifiserver.protocol.About;
-import com.mock.wifiserver.protocol.CommonSuccessResponse;
+import com.mock.wifiserver.protocol.CommonResponse;
 
 public class AboutHandler extends ChannelInboundHandlerAdapter {
 	
@@ -22,7 +22,7 @@ public class AboutHandler extends ChannelInboundHandlerAdapter {
 			ByteBuf data = (ByteBuf) msg;
 			About about = About.decode(data);
 			logger.info("decode about : {}",about);
-			CommonSuccessResponse.write(ctx, about.getHeader().getControl());
+			CommonResponse.responseSuccess(ctx, about.getHeader().getControl());
 		} finally {
 			ReferenceCountUtil.release(msg);
 		}
