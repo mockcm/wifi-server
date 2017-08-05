@@ -130,6 +130,4 @@ public class StatInfo {
 	public void setHeader(Header header) {
 		this.header = header;
 	}
-	
-	
 }

@@ -37,8 +37,8 @@ public class WifiServer {
 				Executors.newSingleThreadExecutor().execute(new Runnable() {
 					@Override
 					public void run() {
-						//jedis = new Jedis("192.168.0.100", 6379);
-						//jedis.subscribe(new CommandSubscriber(), "DEVICE_COMMAND");
+						jedis = new Jedis("192.168.0.102", 6379);
+						jedis.subscribe(new CommandSubscriber(), "DEVICE_COMMAND");
 					}
 				});
 			}

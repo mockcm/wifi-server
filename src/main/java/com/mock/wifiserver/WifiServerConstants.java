@@ -10,4 +10,17 @@ public class WifiServerConstants {
 	
 	//设置消息的长度，
 	//private static final int BODY_LENGHT = 
+	
+	
+	public static final int CMD_ATTAR_STATUA = 1;
+	
+	public static final int CMD_ELECTRIC_STATUA = 2;
+	
+	public static final int CMD_MACHINE_OPEN = 3;
+	
+	public static final int CMD_MECHINE_FAN = 4;
+	
+	public static final int CMD_WORKING_STATUS = 5;
+	
+	
 }

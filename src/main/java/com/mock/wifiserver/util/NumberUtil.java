@@ -19,6 +19,10 @@ public class NumberUtil {
 		return (byte) (data >> index & 1);
 	}
 	
+	public static byte setBit(byte src,int index,int value) {
+		return (byte) (src | (value >> index));
+	}
+	
 
 	
 	public static Integer readInt(ByteBuf data,int index,int length) {
