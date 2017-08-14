@@ -54,7 +54,7 @@ public class DevicePusherManager {
 	private static final void pushAttarStatus(String mac,String value) {
 		
 		ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
-		resp.writeShort(4);
+		resp.writeShort(3);
 		byte contro = 0;
 		resp.writeByte(contro);
 		resp.writeByte(WifiServerConstants.CMD_ATTAR_STATUA);
@@ -72,7 +72,7 @@ public class DevicePusherManager {
 	private static final void pushElectricStatus(String mac,String value) {
 		
 		ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
-		resp.writeShort(4);
+		resp.writeShort(3);
 		byte contro = 0;
 		resp.writeByte(contro);
 		resp.writeByte(WifiServerConstants.CMD_ELECTRIC_STATUA);
@@ -89,7 +89,7 @@ public class DevicePusherManager {
 	private static final void pushMachineOpen(String mac,String value) {
 			
 			ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
-			resp.writeShort(4);
+			resp.writeShort(3);
 			byte contro = 0;
 			resp.writeByte(contro);
 			resp.writeByte(WifiServerConstants.CMD_MACHINE_OPEN);
@@ -107,7 +107,7 @@ public class DevicePusherManager {
 	private static final void pushMechineFan(String mac,String value) {
 		
 		ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
-		resp.writeShort(4);
+		resp.writeShort(3);
 		byte contro = 0;
 		resp.writeByte(contro);
 		resp.writeByte(WifiServerConstants.CMD_MECHINE_FAN);
@@ -124,7 +124,7 @@ public class DevicePusherManager {
 	private static final void pushWorkingStatus(String mac,String value) {
 		
 		ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
-		resp.writeShort(4);
+		resp.writeShort(3);
 		byte contro = 0;
 		resp.writeByte(contro);
 		resp.writeByte(WifiServerConstants.CMD_WORKING_STATUS);
