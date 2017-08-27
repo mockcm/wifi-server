@@ -23,7 +23,7 @@ public class DevicePusherManager {
 		
 		Integer code = deviceCommand.getCode();
 		if (null == code) {
-			logger.warn("paramName from deviceCommand is NULL");
+			logger.warn("business code from deviceCommand is NULL");
 			return;
 		}
 		
