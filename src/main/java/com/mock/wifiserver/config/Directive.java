@@ -19,7 +19,7 @@ public enum Directive {
 	DEVICE_INFO((byte)0x04),
 	
 	//状态数据
-	STAT_INFO((byte)0x06),
+	STAT_INFO((byte)0x05),
 	
 	//连接服务器
 	CONNECT_SERVER((byte)0x0D),

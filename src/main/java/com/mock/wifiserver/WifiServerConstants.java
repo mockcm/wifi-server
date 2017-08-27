@@ -23,4 +23,9 @@ public class WifiServerConstants {
 	public static final int CMD_WORKING_STATUS = 5;
 	
 	
+	
+	//心跳
+	public static final int CMD_HEART_BEAT = 0x01;
+	
+	
 }

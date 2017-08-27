@@ -6,8 +6,8 @@ public class DeviceCommand implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String machineId;
-	private String paramValue;
-	private String paramName;
+	private Object paramValue;
+	private Integer code;
 	private String machineMac;
 	
 	public String getMachineId() {
@@ -16,18 +16,13 @@ public class DeviceCommand implements Serializable {
 	public void setMachineId(String machineId) {
 		this.machineId = machineId;
 	}
-	public String getParamValue() {
+	public Object getParamValue() {
 		return paramValue;
 	}
-	public void setParamValue(String paramValue) {
+	public void setParamValue(Object paramValue) {
 		this.paramValue = paramValue;
 	}
-	public String getParamName() {
-		return paramName;
-	}
-	public void setParamName(String paramName) {
-		this.paramName = paramName;
-	}
+	
 	public String getMachineMac() {
 		return machineMac;
 	}
@@ -37,10 +32,11 @@ public class DeviceCommand implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	@Override
-	public String toString() {
-		return "DeviceCommand [machineId=" + machineId + ", paramValue=" + paramValue + ", paramName=" + paramName
-				+ ", machineMac=" + machineMac + "]";
+	public Integer getCode() {
+		return code;
+	}
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 
 }
