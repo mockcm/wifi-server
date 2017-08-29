@@ -24,4 +24,10 @@ public class SendCommand {
 	public static final int SWITCH_ELECTRIC = 7;
 	
 	//6~0xff预留
+	
+	public static final int DEVICE_INFO = 300;
+	
+	public static final int TIME = 301;
+	
+	public static final int ABOUT = 302;
 }

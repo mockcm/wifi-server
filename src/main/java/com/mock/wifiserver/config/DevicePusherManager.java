@@ -1,12 +1,18 @@
 package com.mock.wifiserver.config;
 
+import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
 import com.mock.wifiserver.DeviceManager;
+import com.mock.wifiserver.domain.About;
 import com.mock.wifiserver.domain.Machine;
+import com.mock.wifiserver.domain.MachineName;
 import com.mock.wifiserver.domain.MachineTime;
 import com.mock.wifiserver.domain.TimeSwitch;
 import com.mock.wifiserver.util.NumberUtil;
@@ -35,6 +41,16 @@ public class DevicePusherManager {
 		}
 		
 		switch (code) {
+		
+		case SendCommand.DEVICE_INFO:
+			pushDeviceInfo(mac, JSON.parseObject(value.toString(), MachineName.class));
+			break;
+		case SendCommand.TIME:
+			break;
+			
+		case SendCommand.ABOUT:
+			pushAbout(mac, JSON.parseObject(value.toString(), About.class));
+			break;
 		case SendCommand.SWITCH_ATTAR:
 			pushAttarStatus(mac, (String)value);
 			break;
@@ -48,7 +64,7 @@ public class DevicePusherManager {
 			break;
 		//时间段开关	
 		case SendCommand.SWITCH_TIME_FRAME:
-			pushSwitchTimeFrame(mac,(TimeSwitch)value);
+			pushSwitchTimeFrame(mac,JSON.parseObject(value.toString(), TimeSwitch.class));
 			break;
 		//电量
 		case SendCommand.SWITCH_ELECTRIC:
@@ -56,16 +72,61 @@ public class DevicePusherManager {
 			break;
 		//总控制
 		case SendCommand.TOATL_CONTROL:
-			pushAllInfo(mac, (Machine)value);
+			pushAllInfo(mac, JSON.parseObject(value.toString(), Machine.class));
 			break;
 		//时间段
 		case SendCommand.TIME_FRAME:
-			pushTimeFrame(mac,(MachineTime)value);
+			pushTimeFrame(mac,JSON.parseObject(value.toString(), MachineTime.class));
 			break;
 		default:
 			logger.warn("unknown command. code :{}",code);
 			break;
 		}
+	}
+	
+	
+	private static final void pushAbout(String mac,About about) {
+		
+		Map<String,String> data = new HashMap<String,String>();
+		data.put("pcbVer", about.getPcbVer());
+		data.put("serial",about.getSerial());
+		data.put("equipmentVer",about.getEquipmentVer());
+		String dataJson = JSON.toJSONString(data);
+		byte [] dataBytes = dataJson.getBytes(Charset.forName("UTF-8"));
+		ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
+		resp.writeShort(dataBytes.length + 1);
+		resp.writeByte(0x04);
+		resp.writeBytes(dataBytes);
+		
+		Channel channel = DeviceManager.channel(mac);
+		if (null == channel) {
+			logger.error("channel is null.mac :{}",mac);
+			return;
+		}
+		logger.info("resp:{}",resp);
+		channel.writeAndFlush(resp);
+	}
+	
+	private static final void pushDeviceInfo(String mac,MachineName machineName) {
+		
+		Map<String,String> data = new HashMap<String,String>();
+		data.put("name", machineName.getMachineName());
+		data.put("addr", machineName.getAddress());
+		String dataJson = JSON.toJSONString(data);
+		byte [] dataBytes = dataJson.getBytes(Charset.forName("UTF-8"));
+		
+		ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
+		resp.writeShort(dataBytes.length + 1);
+		resp.writeByte(0x01);
+		resp.writeBytes(dataBytes);
+		
+		Channel channel = DeviceManager.channel(mac);
+		if (null == channel) {
+			logger.error("channel is null.mac :{}",mac);
+			return;
+		}
+		logger.info("resp:{}",resp);
+		channel.writeAndFlush(resp);
 	}
 	
 	//发送总控制
