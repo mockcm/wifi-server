@@ -20,4 +20,8 @@ public class DeviceManager {
 	public static Channel channel(String mac) {
 		return devices.get(mac);
 	}
+	
+	public static ConcurrentMap<String, Channel> devices() {
+		return devices;
+	}
 }

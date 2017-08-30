@@ -1,5 +1,7 @@
 package com.mock.wifiserver.handler;
 
+import java.util.Calendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +10,7 @@ import com.mock.wifiserver.config.Directive;
 import com.mock.wifiserver.protocol.Protocol;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.AttributeKey;
@@ -20,6 +23,22 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		logger.info("A client connected! ctx:{}",ctx);
 		super.channelActive(ctx);
+		//每当设备连接上来时，就发送进行时间同步
+		Calendar calendar = Calendar.getInstance();
+		int weekOfDay = calendar.get(Calendar.DAY_OF_WEEK);
+		ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
+		resp.writeShort(8);
+		resp.writeByte(0x02);
+		resp.writeByte(weekOfDay - 1);
+		resp.writeByte(calendar.get(Calendar.YEAR));
+		resp.writeByte(calendar.get(Calendar.MONTH) + 1);
+		resp.writeByte(calendar.get(Calendar.DAY_OF_MONTH));
+		resp.writeByte(calendar.get(Calendar.HOUR_OF_DAY));
+		resp.writeByte(calendar.get(Calendar.MINUTE));
+		resp.writeByte(calendar.get(Calendar.SECOND));
+		
+		ctx.writeAndFlush(resp);
+		
 	}
 
 	@Override

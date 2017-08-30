@@ -1,5 +1,7 @@
 package com.mock.wifiserver;
 
+import java.util.Calendar;
+
 public class WifiServerConstants {
 	
 	public static final int MAX_DATA_LENGTH = 2048;
@@ -27,5 +29,12 @@ public class WifiServerConstants {
 	//心跳
 	public static final int CMD_HEART_BEAT = 0x01;
 	
-	
+	public static void main(String[] args) {
+		Calendar calendar = Calendar.getInstance();
+		
+		calendar.add(Calendar.DAY_OF_MONTH, -2);
+		System.out.println(calendar.getTime());
+		
+		System.out.println(calendar.get(Calendar.MONTH));
+	}
 }

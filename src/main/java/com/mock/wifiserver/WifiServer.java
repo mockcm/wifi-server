@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mock.wifiserver.config.DeviceTimeSendScheduler;
 import com.mock.wifiserver.config.JedisManager;
 import com.mock.wifiserver.handler.WifiChannelInitializer;
 import com.mock.wifiserver.sub.CommandSubscriber;
@@ -44,6 +45,7 @@ public class WifiServer {
 					}
 				});
 				
+				DeviceTimeSendScheduler.scheduler();
 				//测试用
 //				Executors.newSingleThreadExecutor().execute(new Runnable() {
 //					
