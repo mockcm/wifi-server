@@ -11,6 +11,7 @@ import com.mock.wifiserver.DeviceManager;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import io.netty.channel.Channel;
 
 public class DeviceTimeSendScheduler {
 	
@@ -25,7 +26,8 @@ public class DeviceTimeSendScheduler {
 				int weekOfDay = calendar.get(Calendar.DAY_OF_WEEK);
 				
 				try {
-					DeviceManager.devices().forEach((k,v) -> {
+					for (Channel channel : DeviceManager.devices().values()) {
+						if (null == channel) continue;
 						ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
 						resp.writeShort(8);
 						resp.writeByte(0x02);
@@ -36,8 +38,8 @@ public class DeviceTimeSendScheduler {
 						resp.writeByte(calendar.get(Calendar.HOUR_OF_DAY));
 						resp.writeByte(calendar.get(Calendar.MINUTE));
 						resp.writeByte(calendar.get(Calendar.SECOND));
-						v.writeAndFlush(resp);
-					});
+						channel.writeAndFlush(resp);
+					}
 				}catch (Exception e) {
 					logger.error(e.getMessage(),e);
 				}
