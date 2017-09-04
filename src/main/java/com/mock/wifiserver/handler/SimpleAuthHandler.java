@@ -20,6 +20,8 @@ public class SimpleAuthHandler extends ChannelInboundHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		
 		ByteBuf data = (ByteBuf) msg;
+		logger.info("data length :{},readerIndex:{},writerIndex:{},readableBytes:{}",
+				new Object[]{data.getShort(0),data.readerIndex(),data.writerIndex(),data.readableBytes()});
 		//获取固定认证字符串
 		String authStr = data.toString(Protocol.AUTH_OFFSET, Protocol.AUTH_LENGTH, Charset.forName("UTF-8"));
 		if (null == authStr || "".equals(authStr)) {
