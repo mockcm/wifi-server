@@ -47,7 +47,9 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
 		String mac = (String) ctx.channel().attr(AttributeKey.valueOf("mac")).get();
 		ctx.channel().attr(AttributeKey.valueOf("mac")).remove();
 		logger.info("A client disConnected! mac:{}, ctx:{}",mac,ctx);
-		DeviceManager.removeDevice(mac);
+		if (null != mac) {
+			DeviceManager.removeDevice(mac);
+		}
 		super.channelInactive(ctx);
 	}
 

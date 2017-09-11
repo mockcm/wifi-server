@@ -23,4 +23,7 @@ public class StatInfoProtocol {
 	
 	public static final int PUMP_WORK_TIME_OFFSET = 31;
 	public static final int PUMP_WORK_TIME_LENGTH = 4;
+	
+	public static final int CHANGED_FLAG_OFFSET = 35;
+	public static final int CHANGED_FLAG_LENGTH = 1;
 }

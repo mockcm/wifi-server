@@ -15,6 +15,7 @@ public class StatInfo {
 	private short envPressure;
 	private int machineWorkTime;
 	private int pumpWorkTime;
+	private byte changedFlag;
 	
 	/**
 	 * note:需要按照协议进行解码
@@ -26,7 +27,6 @@ public class StatInfo {
 		StatInfo statInfo = new StatInfo();
 		statInfo.setHeader(Header.decode(buf));
 		//剩余油量
-		
 		statInfo.setOilRemind(buf.getShort(OIL_REMIND_OFFSET));
 		//总油量
 		statInfo.setOilTotal(buf.getShort(OIL_TOTAL_OFFSET));
@@ -41,6 +41,9 @@ public class StatInfo {
 		statInfo.setMachineWorkTime(buf.getInt(MACHINE_WORK_TIME_OFFSET));
 		//气泵工作时间
 		statInfo.setPumpWorkTime(buf.getInt(PUMP_WORK_TIME_OFFSET));
+		
+		//数据是否改变
+		statInfo.setChangedFlag(buf.getByte(CHANGED_FLAG_OFFSET));
 		
 		return statInfo;
 	}
@@ -122,5 +125,15 @@ public class StatInfo {
 
 	public void setPumpWorkTime(int pumpWorkTime) {
 		this.pumpWorkTime = pumpWorkTime;
+	}
+
+
+	public byte getChangedFlag() {
+		return changedFlag;
+	}
+
+
+	public void setChangedFlag(byte changedFlag) {
+		this.changedFlag = changedFlag;
 	}
 }

@@ -9,6 +9,7 @@ import com.mock.wifiserver.domain.MachineOperator;
 import com.mock.wifiserver.protocol.StatInfo;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
@@ -20,8 +21,9 @@ public class StatInfoHandler extends ChannelInboundHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg)
 			throws Exception {
 		
+		StatInfo statInfo = null;
 		try {
-			StatInfo statInfo = StatInfo.decode((ByteBuf)msg);
+			statInfo = StatInfo.decode((ByteBuf)msg);
 			logger.info("decode statInfo : {}",statInfo);
 			MachineOperator stat = new MachineOperator();
 			stat.setAttarCount(new Integer(statInfo.getOilTotal()));
@@ -46,7 +48,16 @@ public class StatInfoHandler extends ChannelInboundHandlerAdapter {
 			}
 		
 		} finally {
+			
 			ReferenceCountUtil.release(msg);
+			if (statInfo.getChangedFlag() == 1) {
+				logger.info("change flag equal 1 ,send 0x01 to deveic.");
+				//向设备回送0x01
+				ByteBuf resp = ByteBufAllocator.DEFAULT.buffer(3);
+				resp.writeShort(1);
+				resp.writeByte(0x01);
+				ctx.writeAndFlush(resp);
+			}
 		}
 	}
 
