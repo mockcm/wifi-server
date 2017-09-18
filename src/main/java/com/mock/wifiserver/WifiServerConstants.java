@@ -1,6 +1,9 @@
 package com.mock.wifiserver;
 
-import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
 
 public class WifiServerConstants {
 	
@@ -30,11 +33,19 @@ public class WifiServerConstants {
 	public static final int CMD_HEART_BEAT = 0x01;
 	
 	public static void main(String[] args) {
-		Calendar calendar = Calendar.getInstance();
 		
-		calendar.add(Calendar.DAY_OF_MONTH, -2);
-		System.out.println(calendar.getTime());
-		
-		System.out.println(calendar.get(Calendar.MONTH));
+	Map<String,Object> aa = new HashMap<> ();
+	aa.put("code", 300);
+	aa.put("machineId", "573770805905126");
+	aa.put("machineMac", "5c.cf.7f.d0.15.49");
+	
+	Map<String,Object> bb = new HashMap<String,Object> ();
+	bb.put("address", "255356");
+	bb.put("machineName", "测试香薰1");
+	aa.put("paramValue",bb);
+	
+	System.out.println(JSON.toJSONString(aa));
+	
+
 	}
 }
