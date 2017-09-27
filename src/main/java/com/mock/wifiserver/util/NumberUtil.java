@@ -169,4 +169,16 @@ public class NumberUtil {
 		}
 		return result;
 	}
+	
+	
+	public static String byte2Hex(byte bvalue) {
+		
+		String hex = Integer.toHexString(bvalue);
+		if (bvalue < 0x10 && bvalue > -1) {
+			hex = "0" + hex;
+		}else if (bvalue < 0 ) {
+			hex = hex.substring(hex.length() - 2,hex.length());
+		}
+		return hex;
+	}
 }

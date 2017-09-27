@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 
 public class WifiServerConstants {
 	
-	public static final int MAX_DATA_LENGTH = 2048;
+	public static final int MAX_DATA_LENGTH = 2048*100;
 	
 	public static final String COMMON_SUCCESS_RESP_CODE = "SUCCESS";
 	

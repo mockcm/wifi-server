@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.mock.wifiserver.DeviceManager;
 import com.mock.wifiserver.protocol.Protocol;
+import com.mock.wifiserver.util.NumberUtil;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -44,7 +45,8 @@ public class SimpleAuthHandler extends ChannelInboundHandlerAdapter {
 		}
 		
 		//获取MAC地址
-		String mac = data.toString(Protocol.MAC_OFFSET, Protocol.MAC_LENGTH, Charset.forName("UTF-8"));
+		//String mac = data.toString(Protocol.MAC_OFFSET, Protocol.MAC_LENGTH, Charset.forName("UTF-8"));
+		String mac = getMac(data, Protocol.MAC_OFFSET, Protocol.MAC_LENGTH);
 		if (null == mac || "".equals(mac)) {
 			logger.error("mac is empty.close channel!");
 			ctx.close();
@@ -87,5 +89,15 @@ public class SimpleAuthHandler extends ChannelInboundHandlerAdapter {
             appendPrettyHexDump(buf, msg);
             return buf.toString();
         }
+	}
+	
+	private String getMac(ByteBuf data,int macIndex,int macLength) {
+		
+		String macHex = "";
+		for (int i = 0;i<macLength;i++) {
+			byte part = data.getByte(macIndex + i);
+			macHex += NumberUtil.byte2Hex(part);
+		}
+		return macHex;
 	}
 }
