@@ -177,6 +177,7 @@ public class DevicePusherManager {
 		data.put("name", machineName.getMachineName());
 		data.put("addr", machineName.getAddress());
 		String dataJson = JSON.toJSONString(data);
+		dataJson = dataJson.replace("\"", "'");
 		byte [] dataBytes = dataJson.getBytes(Charset.forName("UTF-8"));
 		
 		ByteBuf resp = ByteBufAllocator.DEFAULT.buffer();
@@ -396,7 +397,7 @@ public class DevicePusherManager {
 //		channel.writeAndFlush(resp);
 //	}
 	
-	private static String formatByteBuffer(Channel channel,ByteBuf msg) {
+	public static String formatByteBuffer(Channel channel,ByteBuf msg) {
 		String chStr = channel.toString();
 		String eventName = "write";
 		int length = msg.readableBytes();

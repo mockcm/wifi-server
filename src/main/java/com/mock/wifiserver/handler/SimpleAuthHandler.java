@@ -3,8 +3,6 @@ package com.mock.wifiserver.handler;
 import static io.netty.buffer.ByteBufUtil.appendPrettyHexDump;
 import static io.netty.util.internal.StringUtil.NEWLINE;
 
-import java.nio.charset.Charset;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,21 +26,21 @@ public class SimpleAuthHandler extends ChannelInboundHandlerAdapter {
 				new Object[]{data.getShort(0),data.readerIndex(),data.writerIndex(),data.readableBytes(),
 						formatByteBuffer(ctx,data)});
 		//获取固定认证字符串
-		String authStr = data.toString(Protocol.AUTH_OFFSET, Protocol.AUTH_LENGTH, Charset.forName("UTF-8"));
-		if (null == authStr || "".equals(authStr)) {
-			logger.error("auth content is empty,close channel!");
-			ctx.close();
-			data.release();
-			return;
-		}
+		//String authStr = data.toString(Protocol.AUTH_OFFSET, Protocol.AUTH_LENGTH, Charset.forName("UTF-8"));
+		//if (null == authStr || "".equals(authStr)) {
+		//	logger.error("auth content is empty,close channel!");
+		//	ctx.close();
+		//	data.release();
+		//	return;
+		//}
 		
 		//认证字符串不正确
-		if (!"CY_CH_IAA".equals(authStr)) {
-			logger.error("auth content : {} not correct!,close channel!");
-			ctx.close();
-			data.release();
-			return;
-		}
+		//if (!"CY_CH_IAA".equals(authStr)) {
+		//	logger.error("auth content : {} not correct!,close channel!");
+		//	ctx.close();
+		//	data.release();
+		//	return;
+		//}
 		
 		//获取MAC地址
 		//String mac = data.toString(Protocol.MAC_OFFSET, Protocol.MAC_LENGTH, Charset.forName("UTF-8"));

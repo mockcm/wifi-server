@@ -10,7 +10,7 @@ public class DeviceManager {
 	private static final ConcurrentMap<String, Channel> devices = new ConcurrentHashMap<String, Channel>();
 	
 	public static void addDevice(String mac,Channel channel) {
-		devices.putIfAbsent(mac, channel);
+		devices.put(mac, channel);
 	}
 	
 	public static void removeDevice(String mac) {

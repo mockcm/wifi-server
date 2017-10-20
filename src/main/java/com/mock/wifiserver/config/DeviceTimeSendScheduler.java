@@ -39,6 +39,7 @@ public class DeviceTimeSendScheduler {
 						resp.writeByte(calendar.get(Calendar.MINUTE));
 						resp.writeByte(calendar.get(Calendar.SECOND));
 						channel.writeAndFlush(resp);
+						DevicePusherManager.formatByteBuffer(channel, resp);
 					}
 				}catch (Exception e) {
 					logger.error(e.getMessage(),e);
